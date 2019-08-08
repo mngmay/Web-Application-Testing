@@ -2,32 +2,34 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 
-import { Display } from "../components/Display";
+import { Dashboard } from "../components/Dashboard";
 
-describe("<Display />", () => {
-  it("should render count of balls for at-bat", () => {
-    const display = render(<Display />);
+describe("<Dashboard />", () => {
+  it("should render strikes at-bat", () => {
+    const display = render(<Dashboard />);
     expect(display.getByText(/strikes/i));
   });
-  it("balls should be >= 0", () => {
-    const display = render(<Display />);
+
+  it("should render balls at-bat", () => {
+    const display = render(<Dashboard />);
+    expect(display.getByText(/balls/i));
+  });
+
+  it("balls should only be 0, 1, 2, 3", () => {
+    const display = render(<Dashboard />);
     const value = parseInt(display.queryByTestId("balls").innerHTML);
     const valueCondition = num => {
-      return num >= 0;
+      return num >= 0 && num < 4;
+    };
+    expect(valueCondition(value)).toBe(true);
+  });
+
+  it("strikes should only be 0, 1, or 2", () => {
+    const display = render(<Dashboard />);
+    const value = parseInt(display.queryByTestId("strikes").innerHTML);
+    const valueCondition = num => {
+      return num >= 0 && num < 3;
     };
     expect(valueCondition(value)).toBe(true);
   });
 });
-
-// describe('<AtBat />', () => {
-//     it('should render the balls and strikes for the at-bat player', () => {
-//         const atBat = render(<Display />);
-//         console.log(atBat.queryByTestId('ballsnstrikes').children)
-//         const value = parseInt(atBat.getByTestId('ballsnstrikes').innerHTML)
-//         const valueConditional = (num) => {
-//             return num >= 0;
-//         }
-//         console.log(value)
-//         expect(valueConditional(value)).toBe(true)
-//     })
-// })

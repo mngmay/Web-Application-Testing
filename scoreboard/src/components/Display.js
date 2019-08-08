@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 
-export const Display = () => {
+export const Display = ({ balls, strikes }) => {
   return (
     <div className="display">
       <div className="balls">
-        Balls: <span data-testid="balls">2</span>
+        Balls: <span data-testid="balls">{balls}</span>
       </div>
-      <div className="strikes">Strikes</div>
+      <div className="strikes">
+        Strikes: <span data-testid="strikes">{strikes}</span>
+      </div>
     </div>
   );
 };
