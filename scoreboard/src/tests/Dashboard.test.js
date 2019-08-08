@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 
 import { Dashboard } from "../components/Dashboard";
@@ -41,15 +41,72 @@ describe("<Dashboard />", () => {
     expect(hitText(hit)).toBe(true);
   });
 
-  it("should increment strikes by 1 when strike is clicked", () => {});
+  it("should increment strikes by 1 when strike is clicked", () => {
+    const dashboard = render(<Dashboard />);
+    const strikeCount = dashboard.getByTestId("strikes");
+    const strike = dashboard.getByTestId("strikeBtn");
+    expect(strikeCount.textContent).toBe("0");
+    fireEvent.click(strike);
+    expect(strikeCount.textContent).toBe("1");
+  });
 
-  it("should increment strikes by 1 when foul is clicked", () => {});
+  it("should increment strikes by 1 when foul is clicked", () => {
+    const dashboard = render(<Dashboard />);
+    const strikeCount = dashboard.getByTestId("strikes");
+    const foul = dashboard.getByTestId("foulBtn");
+    expect(strikeCount.textContent).toBe("0");
+    fireEvent.click(foul);
+    expect(strikeCount.textContent).toBe("1");
+  });
 
-  it("should increment balls by 1 when balls is clicked", () => {});
+  it("should increment balls by 1 when balls is clicked", () => {
+    const dashboard = render(<Dashboard />);
+    const ballCount = dashboard.getByTestId("balls");
+    const ball = dashboard.getByTestId("ballBtn");
+    expect(ballCount.textContent).toBe("0");
+    fireEvent.click(ball);
+    expect(ballCount.textContent).toBe("1");
+  });
 
-  it("if strikes is at 2, clicking foul should not increment", () => {});
+  it("if strikes is at 2, clicking foul should not increment", () => {
+    const dashboard = render(<Dashboard />);
+    const strikeCount = dashboard.getByTestId("strikes");
+    const foul = dashboard.getByTestId("foulBtn");
+    expect(strikeCount.textContent).toBe("0");
+    fireEvent.click(foul);
+    expect(strikeCount.textContent).toBe("1");
+    fireEvent.click(foul);
+    expect(strikeCount.textContent).toBe("2");
+    fireEvent.click(foul);
+    expect(strikeCount.textContent).toBe("2");
+  });
 
-  it("should increment reset balls and strikes to 0 when a balls is at 3 and is clicked", () => {});
+  it("should reset balls to 0 when a balls is at 3 and is clicked", () => {
+    const dashboard = render(<Dashboard />);
+    const ballCount = dashboard.getByTestId("balls");
+    const ball = dashboard.getByTestId("ballBtn");
+    expect(ballCount.textContent).toBe("0");
+    fireEvent.click(ball);
+    expect(ballCount.textContent).toBe("1");
+    fireEvent.click(ball);
+    expect(ballCount.textContent).toBe("2");
+    fireEvent.click(ball);
+    expect(ballCount.textContent).toBe("3");
+    fireEvent.click(ball);
+    expect(ballCount.textContent).toBe("0");
+    fireEvent.click(ball);
+  });
 
-  it("should increment reset balls and strikes to 0 when a strikes is at 2 and is clicked", () => {});
+  it("should reset strikes to 0 when a strikes is at 2 and is clicked", () => {
+    const dashboard = render(<Dashboard />);
+    const strikeCount = dashboard.getByTestId("strikes");
+    const strike = dashboard.getByTestId("strikeBtn");
+    expect(strikeCount.textContent).toBe("0");
+    fireEvent.click(strike);
+    expect(strikeCount.textContent).toBe("1");
+    fireEvent.click(strike);
+    expect(strikeCount.textContent).toBe("2");
+    fireEvent.click(strike);
+    expect(strikeCount.textContent).toBe("0");
+  });
 });
