@@ -114,6 +114,12 @@ describe("<Dashboard />", () => {
     const strikeCount = dashboard.getByTestId("strikes");
     const ballCount = dashboard.getByTestId("balls");
     const hit = dashboard.getByTestId("hitBtn");
+    const strike = dashboard.getByTestId("strikeBtn");
+    const ball = dashboard.getByTestId("ballBtn");
+    fireEvent.click(strike);
+    fireEvent.click(ball);
+    expect(strikeCount.textContent).toBe("1");
+    expect(ballCount.textContent).toBe("1");
     fireEvent.click(hit);
     expect(strikeCount.textContent).toBe("0");
     expect(ballCount.textContent).toBe("0");
