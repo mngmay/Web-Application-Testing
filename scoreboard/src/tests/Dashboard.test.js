@@ -94,7 +94,6 @@ describe("<Dashboard />", () => {
     expect(ballCount.textContent).toBe("3");
     fireEvent.click(ball);
     expect(ballCount.textContent).toBe("0");
-    fireEvent.click(ball);
   });
 
   it("should reset strikes to 0 when a strikes is at 2 and is clicked", () => {
@@ -108,5 +107,15 @@ describe("<Dashboard />", () => {
     expect(strikeCount.textContent).toBe("2");
     fireEvent.click(strike);
     expect(strikeCount.textContent).toBe("0");
+  });
+
+  it("should reset strikes and balls to 0 when clicked", () => {
+    const dashboard = render(<Dashboard />);
+    const strikeCount = dashboard.getByTestId("strikes");
+    const ballCount = dashboard.getByTestId("balls");
+    const hit = dashboard.getByTestId("hitBtn");
+    fireEvent.click(hit);
+    expect(strikeCount.textContent).toBe("0");
+    expect(ballCount.textContent).toBe("0");
   });
 });
